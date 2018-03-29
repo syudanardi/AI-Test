@@ -9,41 +9,45 @@ class Problem(Game):
     __init__, goal_test, and path_cost. Then you will create instances
     of your subclass and solve them with the various search functions."""
 
-    def __init__(self, initial, goal=None):
+    def __init__(self):
         """The constructor specifies the initial state, and possibly a goal
         state, if there is a unique goal. Your subclass's constructor can add
         other arguments."""
         Game.__init__(self)
+        self.readBoard()
+        self.assignCoordinates()
+        initial = self.white.getPieces()
+        goal = None
         self.initial = initial
         self.goal = goal
+        print(self.actions(initial))
 
     def actions(self, state):
         """Return the actions that can be executed in the given
         state. The result would typically be a list, but if there are
         many actions, consider yielding them one at a time in an
         iterator, rather than building them all at once."""
-        """
-        actions = []
-        for i in range(state):
+
+        action = []
+        for i in range(len(state)):
             cord = state[i].getCoordinate()
-            if Game.checkUp(cord) == '-':
-                actions.append((i,"up"))
-            elif Game.doubleCheck(Game.checkUp,(cord)) == '-':
-                actions.append((i,"dup"))
-            if Game.checkLeft(cord) == '-':
-                actions.append((i,"left"))
-            elif Game.doubleCheck(Game.checkLeft, (cord)) == '-':
-                actions.append((i,"dleft"))
-            if Game.checkDown(cord) == '-':
-                actions.append((i,"down"))
-            elif Game.doubleCheck(Game.checkUp, (cord)) == '-':
-                actions.append((i,"ddown"))
-            if Game.checkRight(cord) == '-':
-                actions.append((i,"right"))
-            elif Game.doubleCheck(Game.checkUp, (cord)) == '-':
-                actions.append((i,"dright"))
-        return actions
-        """
+            if Game.checkUp(self, cord) == '-':
+                action.append((i,"up"))
+            elif Game.doubleCheck(self, Game.checkUp, cord) == '-':
+                action.append((i,"dup"))
+            if Game.checkLeft(self,cord) == '-':
+                action.append((i,"left"))
+            elif Game.doubleCheck(self, Game.checkLeft, cord) == '-':
+                action.append((i,"dleft"))
+            if Game.checkDown(self,cord) == '-':
+                action.append((i,"down"))
+            elif Game.doubleCheck(self, Game.checkDown, cord) == '-':
+                action.append((i,"ddown"))
+            if Game.checkRight(self,cord) == '-':
+                action.append((i,"right"))
+            elif Game.doubleCheck(self, Game.checkRight, cord) == '-':
+                action.append((i,"dright"))
+        return action
     """
     def result(self, state, action):
         ""Return the state that results from executing the given

@@ -48,11 +48,7 @@ class Game:
                     self.white.addPiece(Piece("white", col, row))
                 elif self.board[row][col] == '@':
                     self.black.addPiece(Piece("black", col, row))
-        print([x.getCoordinate() for x in self.corner.getPieces()])
-        print([x.getCoordinate() for x in self.white.getPieces()])
-        print([x.getCoordinate() for x in self.black.getPieces()])
 
-    """
     def checkUp(self, coordinate):
         xCoor = coordinate[0]
         yCoor = coordinate[1]
@@ -92,4 +88,15 @@ class Game:
             return 0
 
         return self.board[yCoor][xCoor + 1]
-    """
+
+    def doubleCheck(self, dir, cord):
+        col = cord[0]
+        row = cord[1]
+        if dir.__name__ == "checkUp":
+            return(dir(self,(col,row-1)))
+        elif dir.__name__ == "checkDown":
+            return(dir(self,(col,row+1)))
+        elif dir.__name__ == "checkLeft":
+            return(dir(self,(col-1,row)))
+        elif dir.__name__ == "checkRight":
+            return(dir(self,(col+1,row)))
